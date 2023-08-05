@@ -30,6 +30,37 @@ export default function App(){
     return;
   }
 
+  function toggleTodo( id, completed ){
+
+    setTodos( currentTodos => {
+      return currentTodos.map(
+        ( todo ) => {
+          if( id === todo.id ){
+            return { ...todo, completed }
+          }
+          return todo;
+        }
+      )
+    })
+
+    return
+  }
+
+  function deleteTodo( id ){
+    setTodos(
+      currentTodos => {
+        return currentTodos.filter( todo => {
+          // return todos that do not have the id
+          if( id !== todo.id ){
+            return todo
+          }
+
+        })
+      }
+    )
+  }
+
+  // render out our todolist
   return (
     <>
       {/* To-do App Title */}
@@ -70,11 +101,17 @@ export default function App(){
                 return (
                   <li key={todo.id} className="todo-item d-flex flex-row justify-content-between
                   align-items-center bg-secondary p-2 rounded-2 my-2">
+
                     <label className="d-flex flex-row align-items-center">
-                      <input type="checkbox" className="me-2" value={todo.completed}/>
+                      <input type="checkbox"
+                        className="me-2"
+                        checked={todo.completed}
+                        onChange={e => toggleTodo(todo.id, e.target.checked)} />
                       <span className="todo-description">{todo.title}</span>
                     </label>
-                    <button className="btn btn-danger">Delete</button>
+
+                    <button className="btn btn-danger"
+                    onClick={ e => deleteTodo(todo.id) }>Delete</button>
                   </li>
                 )
               }
