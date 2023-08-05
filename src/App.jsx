@@ -1,5 +1,13 @@
 import { useState } from "react"
 
+function EmptyTodoListPlaceholder(){
+  return (
+    <li className="bg-secondary p-2">
+      No Todos Yet
+    </li>
+  )
+}
+
 export default function App(){
   // add state management
   const [newItem, setNewItem] = useState("");
@@ -94,6 +102,10 @@ export default function App(){
       <section className="display-section mt-5">
         <h2 className="section-title fs-4">Todo List</h2>
         <ul id="todo-items-list" className="list-unstyled p-0">
+
+          { /* Show this if no todos exist */
+            todos.length === 0 ? <EmptyTodoListPlaceholder/> : null
+          }
 
           { /* loop though saved todos and render them out */
             todos.map(
