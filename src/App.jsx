@@ -24,6 +24,9 @@ export default function App(){
       return newTodoList
     })
 
+    // clear input field
+    setNewItem("");
+
     return;
   }
 
